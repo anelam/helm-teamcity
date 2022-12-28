@@ -1,0 +1,19 @@
+apiVersion: v2
+name: teamcity
+description: TeamCity Helm Chart
+type: application
+
+maintainers:
+  - name: Malena Ebert
+    email: malena-helm@ebert.li
+
+version: 0.1.0
+appVersion: "2022.10.1"
+
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.1.5
+  - name: kube-prometheus-stack
+    repository: https://prometheus-community.github.io/helm-charts
+    version: 43.1.3

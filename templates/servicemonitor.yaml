@@ -1,0 +1,22 @@
+{{- if .Values.teamCityServiceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "teamcity.fullname" . }}
+  labels:
+    {{- include "teamcity.labels" . | nindent 4 }}
+    release: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "teamcity.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: http
+    scheme: http
+    path: /app/metrics
+    params:
+      experimental: ["true"]
+    bearerTokenSecret:
+      name: {{ include "teamcity.fullname" . }}-metrics
+      key: token
+{{- end -}}
